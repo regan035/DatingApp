@@ -14,10 +14,14 @@ builder.Services.AddDbContext<DataContext>(opt=>{
   opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+// add cors service to accept request from client
+builder.Services.AddCors();
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseCors(builder=>builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
 app.UseHttpsRedirection();
 
